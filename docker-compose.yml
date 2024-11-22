@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0.29
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    expose:
+      - 3306
+      - 33060
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+        - mynet
+
+  springboot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shop_sphere 
+    ports:
+      - "9090:9090"
+    depends_on:
+      - mysql
+    networks:
+      - mynet
+
+volumes:
+  mysql_data:
+
+networks:
+  mynet:
+    external: true
