@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.excel.EasyExcel;
 import com.example.ShopSphere.Exception.ValidationFailedException;
 import com.example.ShopSphere.entity.User;
 import com.example.ShopSphere.file.FileService;
@@ -71,9 +74,6 @@ public class UserController {
 				.setData("user",user)  
 				.build(), HttpStatus.OK); 
 	}
-
-	
-
     
 	@GetMapping("/generate-excel")
 	public ResponseEntity<String> generateExcel() {
@@ -114,5 +114,30 @@ public class UserController {
 	                             .body("Failed to generate Excel file: " + e.getMessage());
 	    }
 	}
+	
+	public static void main(String[] args) {
+//		List<String> fruits =  Arrays.asList("apple","banana","mango","pears","orange");
+//		
+//		Map<Integer, List<String>> groupedByLength = fruits.stream()
+//                .collect(Collectors.groupingBy(s -> s.length()));
+//		
+//		groupedByLength.forEach((length, count) -> {
+//            System.out.println("Words of length " + length + ": " + count);
+//        });	
+		
+		List<Integer> fruits =  Arrays.asList(1,4,5,6,74,5,6,7,8);
+		
+//		Map<Object, List<Integer>> groupedByLength = fruits.stream()
+//                .collect(Collectors.groupingBy(s -> System.out.println(s % 2 == 0))); 
+//		
+//		groupedByLength.forEach((length, count) -> {
+//            System.out.println("Words of length " + length + ": " + count);
+//        });	
+	}
+	
+	    
+	
+	    
+
 
 }
