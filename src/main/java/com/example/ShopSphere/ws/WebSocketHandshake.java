@@ -14,13 +14,21 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 public class WebSocketHandshake implements HandshakeInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(WebSocketHandshake.class);
 
+    @Override
+    public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
+        String userId = request.getURI().getQuery();
+        System.out.println("User ID added to session query: " + userId);
 
-	@Override
-	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,Map<String, Object> attributes) throws Exception {
-        logger.info("WebSocket handshake started: {}");
+        if (userId != null && userId.contains("userId=")) {
+        	 userId = userId.split("=")[1];
+        }
+        // Store userId in the WebSocket session (simpSessionId)
+        attributes.put("userId", userId);
+        System.out.println("User ID added to session: " + userId);
+        
+        return true;
+    }
 
-		return true;
-	}
 
 	@Override
 	public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception exception) {

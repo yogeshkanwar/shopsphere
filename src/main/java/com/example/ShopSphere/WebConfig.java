@@ -69,7 +69,7 @@ public class WebConfig implements WebMvcConfigurer {
 								 .cors().and() 
 				.authorizeRequests()
 				.antMatchers(HttpMethod.POST,"/login","/sign-up").permitAll()
-				.antMatchers(HttpMethod.GET, "/oauth2/authorization/github").permitAll()
+				.antMatchers(HttpMethod.GET, "/oauth2/authorization/github","/boot-stomp").permitAll()
 				
 				.anyRequest().authenticated().and().
 				
